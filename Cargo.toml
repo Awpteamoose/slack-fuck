@@ -1,0 +1,6 @@
+[workspace]
+members = [
+	"crates/injector",
+	"crates/dll",
+]
+resolver = "2"
