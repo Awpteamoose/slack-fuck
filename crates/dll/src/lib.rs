@@ -1,6 +1,10 @@
 use once_cell::sync::Lazy;
 use windows::{core::s, Win32::{Foundation::{BOOL, HMODULE, TRUE}, System::{Diagnostics::Debug::ReadProcessMemory, SystemServices::DLL_PROCESS_ATTACH, Threading::GetCurrentProcess}, UI::Shell::{Shell_NotifyIconA, NOTIFYICONDATAA, NOTIFYICONDATAW, NOTIFY_ICON_MESSAGE}}};
 
+// TODO: https://docs.rs/retour/0.4.0-alpha.2/retour/index.html
+// https://github.com/Hpmason/retour-rs/blob/master/examples/messageboxw_detour.rs
+// https://crates.io/crates/dll-syringe
+
 // static ORIGINAL_SHELL_NOTIFY_ICON: Lazy<unsafe fn(dw_message: NOTIFY_ICON_MESSAGE, lp_data: *const NOTIFYICONDATAA) -> BOOL> = Lazy::new(|| Shell_NotifyIconA);
 static ORIGINAL_SHELL_NOTIFY_ICON_A: Lazy<unsafe extern "system" fn(dw_message: NOTIFY_ICON_MESSAGE, lp_data: *const NOTIFYICONDATAA) -> BOOL> = Lazy::new(|| {
 	let h_shell32 = unsafe { windows::Win32::System::LibraryLoader::GetModuleHandleA(s!("shell32.dll")) }.unwrap();
